@@ -1,1 +1,32 @@
-<p>movie-search works!</p>
+<div class="p-4 max-w-6xl mx-auto">
+  <h1 class="text-3xl font-bold mb-4 text-blue-600">🎬 Movie Search</h1>
+
+  <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-4">
+    <input type="text" [(ngModel)]="query"
+           placeholder="Movie title"
+           class="flex-1 p-2 border rounded" />
+
+    <input type="text" [(ngModel)]="year"
+           placeholder="Year (optional)"
+           class="w-32 p-2 border rounded" />
+
+    <button (click)="searchMovies()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      Search
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="text-gray-500">Loading...</div>
+
+  <div *ngIf="movies.length > 0" class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div *ngFor="let movie of movies" class="bg-white rounded shadow p-4">
+      <img [src]="movie.poster" alt="{{ movie.title }}" class="w-full h-60 object-cover rounded mb-2">
+      <div class="text-lg font-semibold">{{ movie.title }}</div>
+      <div class="text-gray-500">{{ movie.year }} ({{ movie.type }})</div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && movies.length === 0 && hasSearched" class="text-gray-500 mt-6">
+    No results found.
+  </div>
+</div>
