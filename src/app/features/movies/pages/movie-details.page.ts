@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OmdbApiService } from '../../../core/services/omdb-api.service';
 import { CommonModule } from '@angular/common';
+import { OmdbApiService } from '@core/services/omdb-api.service';
 
 
 @Component({

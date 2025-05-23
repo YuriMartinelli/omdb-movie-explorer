@@ -13,25 +13,21 @@
     </button>
   </div>
 
-  <div *ngIf="loading" class="text-gray-500 text-center text-lg">Loading movies...</div>
+  <div *ngIf="(loading$ | async)" class="text-gray-500 text-center text-lg">Loading movies...</div>
 
-  <div *ngIf="movies.length > 0" class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-    <div *ngFor="let movie of movies" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-      <a [routerLink]="['/movies', movie.imdbID]" class="block transform hover:scale-[1.02] transition duration-200">
-        <div class="bg-white hover:shadow-xl rounded overflow-hidden transition">
-          <img [src]="movie.poster !== 'N/A' ? movie.poster : '/assets/no-poster.png'" alt="{{ movie.title }}"
-            class="h-72 w-full object-cover" />
-          <div class="p-4">
-            <h2 class="text-xl font-bold text-gray-900 truncate mb-1">{{ movie.title }}</h2>
-            <p class="text-sm text-gray-500">{{ movie.year }} • {{ movie.type | titlecase }}</p>
-          </div>
+  <div *ngIf="(movies$ | async) as movies" class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <a *ngFor="let movie of movies" [routerLink]="['/movies', movie.imdbID]"
+      class="block transform hover:scale-[1.02] transition duration-200">
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
+        <img [src]="movie.poster !== 'N/A' ? movie.poster : '/assets/no-poster.png'" class="h-72 w-full object-cover"
+          alt="" />
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-gray-900 truncate mb-1">{{ movie.title }}</h2>
+          <p class="text-sm text-gray-500">{{ movie.year }} • {{ movie.type | titlecase }}</p>
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
   </div>
 
-  <div *ngIf="!loading && movies.length === 0 && hasSearched" class="text-center text-gray-400 mt-10">
-    <p class="text-3xl mb-2">😕</p>
-    <p>No results found.</p>
-  </div>
+  <div *ngIf="(error$ | async) as error" class="text-red-500 mt-4 text-center">{{ error }}</div>
 </div>
