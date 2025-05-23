@@ -11,8 +11,8 @@ import { OmdbApiService } from '@core/services/omdb-api.service';
 @Injectable()
 export class MoviesEffects {
     searchMovies$ = createEffect(() => {
-        const actions$ = inject(Actions); // ✅ inside createEffect
-        const movieService = inject(OmdbApiService); // ✅ inside createEffect
+        const actions$ = inject(Actions);
+        const movieService = inject(OmdbApiService);
 
         return actions$.pipe(
             ofType(searchMovies),
