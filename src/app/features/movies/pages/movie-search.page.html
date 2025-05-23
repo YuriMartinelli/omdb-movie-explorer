@@ -1,17 +1,14 @@
 <div class="p-4 max-w-7xl mx-auto">
   <h1 class="text-3xl font-bold text-blue-600 mb-6">🎬 OMDB Movie Explorer</h1>
 
-  <div class="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-8">
-    <input type="text" [(ngModel)]="query"
-           placeholder="Search by title"
-           class="flex-1 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" />
+  <div class="flex gap-2 w-full max-w-3xl mx-auto mt-6 mb-6">
+    <input type="text" [(ngModel)]="query" placeholder="Search movies, shows..."
+      class="flex-1 px-4 py-2 rounded-l-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
 
-    <input type="text" [(ngModel)]="year"
-           placeholder="Year (optional)"
-           class="w-32 px-4 py-2 border rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500" />
+    <input type="text" [(ngModel)]="year" placeholder="Year" class="w-24 px-4 py-2 bg-gray-100 focus:outline-none" />
 
     <button (click)="searchMovies()"
-            class="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
+      class="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded-r-lg font-semibold">
       Search
     </button>
   </div>
@@ -20,19 +17,21 @@
 
   <div *ngIf="movies.length > 0" class="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     <div *ngFor="let movie of movies" class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition">
-      <img [src]="movie.poster !== 'N/A' ? movie.poster : '/assets/no-poster.png'"
-           alt="{{ movie.title }}"
-           class="w-full h-72 object-cover">
-
-      <div class="p-4">
-        <h2 class="text-lg font-semibold text-gray-800 truncate">{{ movie.title }}</h2>
-        <p class="text-sm text-gray-500">{{ movie.year }} • {{ movie.type | titlecase }}</p>
-      </div>
+      <a [routerLink]="['/movies', movie.imdbID]" class="block transform hover:scale-[1.02] transition duration-200">
+        <div class="bg-white hover:shadow-xl rounded overflow-hidden transition">
+          <img [src]="movie.poster !== 'N/A' ? movie.poster : '/assets/no-poster.png'" alt="{{ movie.title }}"
+            class="h-72 w-full object-cover" />
+          <div class="p-4">
+            <h2 class="text-xl font-bold text-gray-900 truncate mb-1">{{ movie.title }}</h2>
+            <p class="text-sm text-gray-500">{{ movie.year }} • {{ movie.type | titlecase }}</p>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 
-  <div *ngIf="!loading && movies.length === 0 && hasSearched"
-       class="text-gray-500 text-center mt-10 text-lg">
-    No results found. Try another search.
+  <div *ngIf="!loading && movies.length === 0 && hasSearched" class="text-center text-gray-400 mt-10">
+    <p class="text-3xl mb-2">😕</p>
+    <p>No results found.</p>
   </div>
 </div>

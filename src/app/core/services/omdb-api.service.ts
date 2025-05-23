@@ -21,4 +21,16 @@ export class OmdbApiService implements MovieApi {
             return [];
         }
     }
+
+    async getMovieById(imdbID: string) {
+        const url = `https://www.omdbapi.com/?apikey=${API_KEY}&i=${imdbID}&plot=full`;
+        try {
+            const res: any = await firstValueFrom(this.http.get(url));
+            return res; // You can adapt this too if needed
+        } catch (error) {
+            console.error('Error loading movie details:', error);
+            return null;
+        }
+    }
+
 }

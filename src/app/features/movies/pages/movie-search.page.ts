@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Movie } from '../../../core/models/movie.model';
 import { OmdbApiService } from '../../../core/services/omdb-api.service';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-movie-search',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './movie-search.page.html',
 })
 export class MovieSearchPage {

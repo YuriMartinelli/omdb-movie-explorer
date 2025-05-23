@@ -1,0 +1,55 @@
+<div class="max-w-6xl mx-auto px-4 py-8 text-gray-800">
+  <div class="flex flex-col md:flex-row gap-8">
+
+    <!-- Poster -->
+    <img [src]="movie.Poster !== 'N/A' ? movie.Poster : '/assets/no-poster.png'" alt="{{ movie.Title }}"
+      class="w-full md:w-72 h-auto rounded shadow-lg object-cover" />
+
+    <!-- Movie Info -->
+    <div class="flex-1 space-y-4">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+        <h1 class="text-3xl font-bold text-gray-900">{{ movie.Title }}</h1>
+        <span class="text-sm text-gray-500">Released: {{ movie.Released }}</span>
+      </div>
+
+      <div class="flex items-center gap-3 text-sm text-gray-600">
+        <span class="px-2 py-1 bg-gray-200 rounded">{{ movie.Year }}</span>
+        <span class="px-2 py-1 bg-gray-200 rounded">{{ movie.Runtime }}</span>
+        <span class="px-2 py-1 bg-gray-200 rounded">{{ movie.Rated }}</span>
+        <span class="px-2 py-1 bg-gray-200 rounded">{{ movie.Type | titlecase }}</span>
+      </div>
+
+      <div class="text-sm">
+        <strong>Genre:</strong>
+        <span *ngFor="let genre of movie.Genre?.split(',')"
+          class="inline-block bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded mr-2">
+          {{ genre.trim() }}
+        </span>
+      </div>
+
+      <p class="text-base text-gray-700 leading-relaxed">
+        {{ movie.Plot }}
+      </p>
+
+      <div class="text-sm space-y-1">
+        <p><strong>Director:</strong> {{ movie.Director }}</p>
+        <p><strong>Writer:</strong> {{ movie.Writer }}</p>
+        <p><strong>Actors:</strong> {{ movie.Actors }}</p>
+        <p><strong>Language:</strong> {{ movie.Language }}</p>
+        <p><strong>Country:</strong> {{ movie.Country }}</p>
+      </div>
+
+      <div class="flex items-center gap-2 mt-4">
+        <span class="text-sm text-gray-600">IMDB Rating:</span>
+        <span class="px-2 py-1 bg-yellow-400 text-black font-bold rounded">
+          ⭐ {{ movie.imdbRating }}
+        </span>
+      </div>
+
+      <button routerLink="/movies"
+        class="mt-6 inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded transition">
+        ← Back to Search
+      </button>
+    </div>
+  </div>
+</div>
