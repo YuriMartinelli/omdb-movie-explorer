@@ -5,14 +5,13 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
     private readonly userSubject = new BehaviorSubject<User | null>(null);
-    readonly user$ = this.userSubject.asObservable();
+    user$ = this.userSubject.asObservable();
 
     constructor(private readonly auth: Auth) {
         onAuthStateChanged(this.auth, (user) => {
             this.userSubject.next(user);
         });
     }
-
 
     loginWithGoogle() {
         return signInWithPopup(this.auth, new GoogleAuthProvider());
@@ -22,7 +21,12 @@ export class AuthService {
         return signOut(this.auth);
     }
 
-    getcurrentUser(): User | null {
+    get currentUser(): User | null {
         return this.auth.currentUser;
     }
+
+    get isAuthenticated(): boolean {
+        return !!this.auth.currentUser;
+    }
 }
+
