@@ -48,7 +48,7 @@ describe('MoviesEffects', () => {
     it('should return searchMoviesFailure on error', (done) => {
         const action = searchMovies({ query: 'ErrorMovie' });
         actions$ = of(action);
-        movieServiceSpy.searchMovies.and.returnValue(Promise.reject('API error'));
+        movieServiceSpy.searchMovies.and.returnValue(Promise.reject(new Error('Failed to load movies')));
 
         effects.searchMovies$.subscribe(result => {
             expect(result).toEqual(searchMoviesFailure({ error: 'Failed to load movies' }));
