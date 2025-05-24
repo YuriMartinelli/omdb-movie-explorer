@@ -5,13 +5,18 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-login',
   imports: [],
+  standalone: true,
   templateUrl: './login.page.html',
-  styleUrl: './login.page.css'
+  styleUrls: ['./login.page.css']
 })
 export class LoginPage {
+  loginInProgress = false;
   constructor(private readonly store: Store, private readonly auth: AuthService) { }
 
   login() {
-    this.auth.loginWithGoogle();
+    if (this.loginInProgress) return;
+
+    this.loginInProgress = true;
+    this.auth.loginWithGoogle().finally(() => this.loginInProgress = false);;
   }
 }

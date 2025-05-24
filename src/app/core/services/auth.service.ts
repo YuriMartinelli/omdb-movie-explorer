@@ -22,7 +22,7 @@ export class AuthService {
         return signOut(this.auth);
     }
 
-    get currentUser(): User | null {
+    getcurrentUser(): User | null {
         return this.auth.currentUser;
     }
 }
