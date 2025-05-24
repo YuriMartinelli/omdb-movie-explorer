@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@core/services/auth.service';
 import { User } from '@angular/fire/auth';
 import { Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -19,13 +19,17 @@ export class AppComponent implements OnInit {
     this.user$ = this.auth.user$;
   }
 
+  private readonly subscription = new Subscription();
   ngOnInit() {
-    this.auth.ready$.subscribe(ready => {
+    const readySubscription = this.auth.ready$.subscribe(ready => {
       this.isAuthReady = ready;
     });
+    this.subscription.add(readySubscription);
   }
-
   logout() {
     this.auth.logout().then(() => this.router.navigate(['/login']));
+  }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
