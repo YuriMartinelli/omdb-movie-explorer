@@ -1,59 +1,73 @@
-# OmdbMovieExplorer
+# 🎬 OMDB Explorer – Angular Challenge
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+This project is part of a technical challenge to demonstrate proficiency with Angular, NgRx, Firebase Auth, and SOLID principles.
 
-## Development server
+## 🛠️ Technologies Used
 
-To start a local development server, run:
+- Angular 17+ (standalone components)
+- NgRx Store & Effects
+- Firebase Authentication (Google OAuth)
+- Tailwind CSS
+- RxJS
+- Jasmine + Karma (unit testing)
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🚀 Features
 
-## Code scaffolding
+- 🔎 Movie search with OMDB API
+- 🧠 Global state management with NgRx
+- 🔐 Google sign-in (Firebase Auth)
+- 🔁 Session persistence with route protection
+- 💾 Secure token-based HTTP interceptor
+- ✅ Unit tests for reducers, effects, guards, services, and components
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
-```
+## 🧪 Running the Project
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Install dependencies:
+    npm install
 
-```bash
-ng generate --help
-```
 
-## Building
+2. Start the development server:
+    ng serve
 
-To build the project run:
+3. Run tests:
+    ng test
 
-```bash
-ng build
-```
+4. View test coverage:
+    ng test --code-coverage
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## 🔐 Firebase Setup (required)
+Go to https://console.firebase.google.com
 
-## Running unit tests
+Create a new project
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Enable Google sign-in under Authentication > Sign-in method
 
-```bash
-ng test
-```
+Replace credentials in src/environments/firebase-config.ts
 
-## Running end-to-end tests
+## 🧪 Test Coverage
+✅ Reducers
+✅ Effects
+✅ Components
+✅ Route guards
+✅ Authentication service
+✅ Token interceptor logic
 
-For end-to-end (e2e) testing, run:
+## ✅ SOLID Principles Applied
+S: Auth logic is separated into AuthService, guard, and interceptor
 
-```bash
-ng e2e
-```
+O: Each service/component is open for extension via observables/hooks
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+L: Uses interfaces and observable patterns
 
-## Additional Resources
+I: Interfaces used for MovieApi abstraction
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+D: Injects dependencies via constructor/Angular DI
+
+
+---
+
+Developed by Yuri Martinelli for DTI Angular Technical Test.
