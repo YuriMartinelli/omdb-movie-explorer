@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { OmdbApiService } from '@core/services/omdb-api.service';
 import { MovieDetailsPage } from './movie-details.page';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 
 describe('MovieDetailsPage', () => {
   let component: MovieDetailsPage;
@@ -8,9 +9,27 @@ describe('MovieDetailsPage', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieDetailsPage]
-    })
-    .compileComponents();
+      imports: [MovieDetailsPage],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              paramMap: {
+                get: (key: string) => 'tt123456'
+              }
+            }
+          }
+        },
+        {
+          provide: OmdbApiService,
+          useValue: {
+            getMovieById: () => Promise.resolve({ Title: 'Mock Movie' })
+          }
+        },
+        provideRouter([])
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MovieDetailsPage);
     component = fixture.componentInstance;
