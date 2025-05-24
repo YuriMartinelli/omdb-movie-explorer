@@ -4,3 +4,7 @@
     </h1>
 </header>
 <router-outlet></router-outlet>
+<header *ngIf="isAuthReady" ...></header>
+<router-outlet *ngIf="isAuthReady"></router-outlet>
+
+<div *ngIf="!isAuthReady" class="p-8 text-center text-white">Loading authentication...</div>
