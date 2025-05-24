@@ -9,6 +9,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
 import { moviesReducer } from './app/features/movies/store/movie.reducer';
 import { MoviesEffects } from '@features/movies/store/movies.effects';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { firebaseConfig } from 'environment/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -17,5 +19,6 @@ bootstrapApplication(AppComponent, {
     provideStore({ movies: moviesReducer }),
     provideEffects([MoviesEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+    provideFirebaseApp(() => initializeApp(firebaseConfig))
   ],
 });
