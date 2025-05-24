@@ -1,6 +1,6 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 import { provideStore } from '@ngrx/store';
@@ -12,6 +12,7 @@ import { MoviesEffects } from '@features/movies/store/movies.effects';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { firebaseConfig } from 'environment/environment';
 import { browserLocalPersistence, getAuth, provideAuth, setPersistence } from '@angular/fire/auth';
+import { AuthInterceptor } from '@core/interceptors/auth.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -25,6 +26,7 @@ bootstrapApplication(AppComponent, {
       const auth = getAuth();
       setPersistence(auth, browserLocalPersistence);
       return auth;
-    })
+    }),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 });
