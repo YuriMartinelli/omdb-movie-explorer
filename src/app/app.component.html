@@ -1,7 +1,20 @@
-<header *ngIf="isAuthReady" class="bg-gray-900 text-white px-4 py-3 flex items-center justify-between">
+<header class="bg-gray-900 text-white px-4 py-3 flex items-center justify-between">
     <h1 class="text-2xl font-bold tracking-wide">
         <a routerLink="/" class="hover:text-yellow-400 transition">🎬 OMDB Explorer</a>
     </h1>
+
+    <ng-container *ngIf="user$ | async as user; else guest">
+        <div class="flex items-center gap-4">
+            <span class="text-sm text-gray-300">Welcome, {{ user.displayName }}</span>
+            <img [src]="user.photoURL" alt="Avatar" class="w-8 h-8 rounded-full" />
+            <button (click)="logout()" class="text-sm text-red-400 hover:underline">Logout</button>
+        </div>
+    </ng-container>
+
+    <ng-template #guest>
+        <a routerLink="/login" class="text-sm text-yellow-400 hover:underline">Login</a>
+    </ng-template>
 </header>
+
 <router-outlet *ngIf="isAuthReady"></router-outlet>
 <div *ngIf="!isAuthReady" class="p-8 text-center text-white">Loading authentication...</div>
