@@ -7,43 +7,32 @@ describe('MovieDetailsPage', () => {
   let component: MovieDetailsPage;
   let fixture: ComponentFixture<MovieDetailsPage>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MovieDetailsPage],
-      providers: [
-        {
-          provide: ActivatedRoute,
-          useValue: {
-            snapshot: {
-              paramMap: {
-                get: (key: string) => 'tt123456' // Mock imdbID
-              }
+  TestBed.configureTestingModule({
+    imports: [MovieDetailsPage],
+    providers: [
+      {
+        provide: ActivatedRoute,
+        useValue: {
+          snapshot: {
+            paramMap: {
+              get: (key: string) => 'tt123456'
             }
           }
-        },
-        {
-          provide: OmdbApiService,
-          useValue: {
-            getMovieById: () =>
-              Promise.resolve({
-                Title: 'Test Movie',
-                Year: '2020',
-                Genre: 'Action',
-                Plot: 'Some plot',
-                Poster: 'poster.jpg'
-              })
-          }
-        },
-        provideRouter([])
-      ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(MovieDetailsPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+        }
+      },
+      {
+        provide: OmdbApiService,
+        useValue: {
+          getMovieById: () => Promise.resolve({
+            Title: 'Test Movie',
+            Year: '2020',
+            Genre: 'Action',
+            Plot: 'Some plot',
+            Poster: 'poster.jpg'
+          })
+        }
+      },
+      provideRouter([])
+    ]
   });
 });

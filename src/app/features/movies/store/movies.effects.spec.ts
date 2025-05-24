@@ -21,7 +21,7 @@ describe('MoviesEffects', () => {
             providers: [
                 provideMockActions(() => actions$),
                 provideEffects(MoviesEffects),
-                provideStore({ movies: moviesReducer }), // ✅ Moved inside providers
+                provideStore({ movies: moviesReducer }),
                 { provide: OmdbApiService, useValue: spy }
             ]
         });
