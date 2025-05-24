@@ -12,7 +12,7 @@ export class AuthService {
     constructor(private readonly auth: Auth) {
         onAuthStateChanged(this.auth, (user) => {
             this.userSubject.next(user);
-            this.isReadySubject.next(true); // ✅ only emit true after auth initializes
+            this.isReadySubject.next(true);
         });
     }
 
@@ -32,5 +32,13 @@ export class AuthService {
     get isAuthenticated(): boolean {
         return !!this.auth.currentUser;
     }
+
+    async getIdToken(): Promise<string | null> {
+        const user = this.auth.currentUser;
+
+        return user ? await user.getIdToken() : null;
+
+    }
+
 }
 
