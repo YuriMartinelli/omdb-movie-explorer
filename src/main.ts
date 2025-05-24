@@ -11,7 +11,7 @@ import { moviesReducer } from './app/features/movies/store/movie.reducer';
 import { MoviesEffects } from '@features/movies/store/movies.effects';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { firebaseConfig } from 'environment/environment';
-import { getAuth, provideAuth } from '@angular/fire/auth';
+import { browserLocalPersistence, getAuth, provideAuth, setPersistence } from '@angular/fire/auth';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -21,6 +21,10 @@ bootstrapApplication(AppComponent, {
     provideEffects([MoviesEffects]),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
-    provideAuth(() => getAuth())
+    provideAuth(() => {
+      const auth = getAuth();
+      setPersistence(auth, browserLocalPersistence);
+      return auth;
+    })
   ],
 });
