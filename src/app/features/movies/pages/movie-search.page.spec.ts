@@ -3,24 +3,22 @@ import { FormsModule } from '@angular/forms';
 import { MovieSearchPage } from './movie-search.page';
 import { MockStore } from '@ngrx/store/testing';
 import { provideStore } from '@ngrx/store';
-import { provideRouter, Routes } from '@angular/router';
 import { searchMovies } from '../store/movie.action';
+import { provideRouter } from '@angular/router';
 
 describe('MovieSearchPage', () => {
   let component: MovieSearchPage;
   let fixture: ComponentFixture<MovieSearchPage>;
   let store: MockStore;
 
-  const routes: Routes = [];
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MovieSearchPage, FormsModule],
       providers: [
         provideStore(),
-        provideRouter(routes)
+        provideRouter([])
       ]
     }).compileComponents();
-
     store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(MovieSearchPage);
     component = fixture.componentInstance;
