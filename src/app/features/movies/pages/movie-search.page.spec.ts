@@ -5,6 +5,7 @@ import { MovieSearchPage } from './movie-search.page';
 import { MockStore } from '@ngrx/store/testing';
 import { provideStore } from '@ngrx/store';
 import { searchMovies } from '../store/movie.action';
+
 describe('MovieSearchPage', () => {
   let component: MovieSearchPage;
   let fixture: ComponentFixture<MovieSearchPage>;
@@ -15,7 +16,7 @@ describe('MovieSearchPage', () => {
       imports: [MovieSearchPage, FormsModule],
       providers: [
         provideStore(),
-        provideRouter([])
+        provideRouter([]) // Required for standalone component with routerLink
       ]
     }).compileComponents();
 
@@ -41,7 +42,7 @@ describe('MovieSearchPage', () => {
 
   it('should not dispatch if query is empty', () => {
     spyOn(store, 'dispatch');
-    component.query = '   '; // whitespace only
+    component.query = '   '; // whitespace-only input
     component.searchMovies();
     expect(store.dispatch).not.toHaveBeenCalled();
   });
